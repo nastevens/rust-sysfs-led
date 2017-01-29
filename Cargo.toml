@@ -1,0 +1,6 @@
+[package]
+name = "sysfs-led"
+version = "0.1.0"
+authors = ["Nick Stevens <nick.stevens@smartthings.com>"]
+
+[dependencies]
