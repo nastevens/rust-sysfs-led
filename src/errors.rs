@@ -1,8 +1,12 @@
 error_chain! {
     errors {
-        InvalidDevicePath(s: String) {
+        InvalidDevicePath(path: String) {
             description("invalid device path")
-            display("invalid device path: '{}'", s)
+            display("invalid device path: '{}'", path)
+        }
+        UnsupportedTrigger(trigger: String) {
+            description("trigger unsupported (kernel driver missing?)")
+            display("trigger unsupported: '{}'", trigger)
         }
     }
 

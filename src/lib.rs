@@ -220,6 +220,9 @@ impl RgbLed for SysfsRgbLed {
     }
 
     fn set_color(&mut self, color: Color) -> Result<()> {
+        let red_max = self.red.max_brightness()? as u32;
+        let green_max = self.green.max_brightness()? as u32;
+        let blue_max = self.blue.max_brightness()? as u32;
         // TODO: This isn't correct
         self.red.set_brightness(Brightness::Absolute(color.red() as u32))?;
         self.green.set_brightness(Brightness::Absolute(color.green() as u32))?;
@@ -247,7 +250,7 @@ fn sysfs_read_file(device_path: &Path, name: &str) -> Result<String> {
         .open(path)?;
     let mut result = String::new();
     file.read_to_string(&mut result)?;
-    Ok(result)
+    Ok(result.trim().into())
 }
 
 fn sysfs_write_file(device_path: &Path, name: &str, value: &str) -> Result<()> {
@@ -277,7 +280,6 @@ mod tests {
         }
 
         fn get(&self, name: &str) -> String {
-            println!("Getting {:?}", self.path().join(name));
             let mut result = String::new();
             File::open(self.path().join(name))
                 .expect(&format!("opening {}", name))
