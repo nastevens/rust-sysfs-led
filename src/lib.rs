@@ -198,7 +198,7 @@ impl SysfsRgbLed {
 
 impl Led for SysfsRgbLed {
     // Brightness on an RGB LED as a whole is a bit strange since there are
-    // three LEDs making up the output. We choose to treat brightness
+    // three LEDs making up the output. We choose to treat brightness as
     // "lightness" in the HSL color space instead - increasing lightness will
     // increase perceived brightness, so it's close.
     fn brightness(&self) -> Result<Brightness> {
